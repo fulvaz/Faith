@@ -450,6 +450,7 @@ class Greeter extends React.Component {
 
 这个模式最后一个缺点是，就算传入 render callback 的是静态参数，这段代码也不会获得任何优化，因为 render callback 们是在渲染时动态组合的。
 
+结论
 ---
 本文介绍了`render callback`的概念，如何使用，在开发基于React程序的使用场景。本文还介绍了其在开源库中的使用，分析了他的优缺点，当然主要是和与它相似的模式-----高阶组件，进行了对比。
 
