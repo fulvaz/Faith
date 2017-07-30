@@ -365,7 +365,7 @@ https://facebook.github.io/react-native/docs/listview.html
 
 `render callback`是以参数的形式传递到另一个组件的 render 函数中的，因此在函数外没办法访问这些参数，父组件就更不可能访问了。如果你需要访问的话，那就以 props 的形式将参数传入另一个组件中，这样，你就是在解决如何通过 props 将注入一个普通组件的问题。另一个解决方法是使用高阶组件。
 
-有一个常见问题需要注意，就是一不小心在 render callback 中使用了‘腐烂’ props或者 state。在对 props 或者 state 使用解构符号，然后将所得的值在 render callback 中以闭包的形式使用。来看个例子；
+有一个常见问题需要注意，就是一不小心在 render callback 中使用了‘腐烂’ props或者 state。在对 props 或者 state 使用解构符号，然后将所得的值在 render callback 中以闭包的形式使用。来看个例子: （译注：准确来说，给`Greeter`传了一个参数‘xiaoming’, 但是app使用中将这个参数修改为‘xiaoguang’，此时，我们期待`Greeter`应该发生变化，但实际上没有。关于js的内存问题看[这里](https://stackoverflow.com/questions/2800463/how-variables-are-allocated-memory-in-javascript)）
 
 
 ```
@@ -410,7 +410,7 @@ class Clock extends React.Component {
 
 这看起来是一个别扭的例子，然而却常常出现在实践中。这个例子中，如果你想用不同的`name`参数多次渲染`Greeter`，那么`name`会一直停留在第一次传的参数中，每个`Greeter`的名字是一样的，因为`renderEverySecond`会在`Clock`组件中被调用，就算后来`Greeter`将新的`renderEverySecond `与`name`传入了组件中，结果依然不变。
 
-解决方式之一是不在`componentDidMount `中使用对象解构符，这样就能使`Clock `使用最新的`renderEverySecond `。
+解决方式之一是不在`componentDidMount `中使用对象解构符，这样就能使`Clock `使用最新的`renderEverySecond `。 (译注：事实上与结构符没啥关系，详细原因是js对变量的处理方法，赋值导致闭包一直引用以前的内存数据，而无从得知变化后的 props 的值)
 
 
 ```
@@ -473,3 +473,5 @@ class Greeter extends React.Component {
 请将翻译的错误直接扔我邮箱，用力地鞭笞我吧 ：）
 
 WARNING: 推荐看原文，因为原文可能会随着时间更新，比如CSS-TRICKS的文章。我已经标注了翻译时间和作者创作/更新时间
+
+吐槽：这篇文章的作者几乎就是以写论文的形式写的文章，然而干货不算多，反而是难理解
