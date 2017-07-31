@@ -410,7 +410,7 @@ class Clock extends React.Component {
 
 这看起来是一个别扭的例子，然而却常常出现在实践中。这个例子中，如果你想用不同的`name`参数多次渲染`Greeter`，那么`name`会一直停留在第一次传的参数中，每个`Greeter`的名字是一样的，因为`renderEverySecond`会在`Clock`组件中被调用，就算后来`Greeter`将新的`renderEverySecond `与`name`传入了组件中，结果依然不变。
 
-解决方式之一是不在`componentDidMount `中使用对象解构符，这样就能使`Clock `使用最新的`renderEverySecond `。 (译注：事实上与结构符没啥关系，详细原因是js对变量的处理方法，赋值导致闭包一直引用以前的内存数据，而无从得知变化后的 props 的值)
+解决方式之一是不在`componentDidMount `中使用对象解构符，这样就能使`Clock `使用最新的`renderEverySecond `。 (译注：事实上与结构符没啥关系，随便用一个赋值操作也会导致一样的结果, 如`obj.a = 1; param1 = obj.a; obj.a = 2;` param1依然是1）
 
 
 ```
